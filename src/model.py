@@ -3,6 +3,7 @@ import logging
 import datetime as dt
 import os
 from pathlib import Path
+import random
 
 
 def main():
@@ -22,22 +23,15 @@ def main():
 	LOGGER.info('Model execute\n')
 	num_try = 0
 	while(num_try <= c.try_limit):
-		nb = input('enter a number:')
-		try:
-			nb = float(nb)
-			print(nb)
-			if nb <= c.low_bar:
-				print('low')
-			elif nb >= c.high_bar:
-				print('high')
-			else:
-				print('median')
+		input = random.randint(-10,10)
+		if input >= 0:
+			return input**2
 			LOGGER.info('Execute succeed\n')
-			break	
-		except:
+		else:
 			num_try += 1
 	if num_try >= c.try_limit:
 		LOGGER.error('Two many tries\n')
+		raise ValueError('Invalid input')
 
 
 
