@@ -12,22 +12,23 @@ def main():
 	logfile_path = Path(logfile_name)
 	copy = 1
 	while logfile_path.exists():
-		logfile_name = './log/' + date + '_log.log' + '_' + str(copy)
+		logfile_name = './log/' + date + '_log_' + str(copy) + '.log' 
 		copy += 1
 		logfile_path = Path(logfile_name)
 	logging.basicConfig(filename=logfile_name, 
 		level=logging.INFO)
 	LOGGER = logging.getLogger(__name__)
-	LOGGER.info('Model Execute at' + time )
+	LOGGER.info('Model Execute at: ' + time  + '\n')
 	LOGGER.info('Model execute\n')
 	num_try = 0
 	while(num_try <= c.try_limit):
 		nb = input('enter a number:')
 		try:
 			nb = float(nb)
-			if nb <= c.lowbar:
+			print(nb)
+			if nb <= c.low_bar:
 				print('low')
-			elif nb >= c.highbar:
+			elif nb >= c.high_bar:
 				print('high')
 			else:
 				print('median')
@@ -35,7 +36,8 @@ def main():
 			break	
 		except:
 			num_try += 1
-	LOGGER.error('Two many tries\n')
+	if num_try >= c.try_limit:
+		LOGGER.error('Two many tries\n')
 
 
 
